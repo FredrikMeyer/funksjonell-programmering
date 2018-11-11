@@ -1,0 +1,44 @@
+#+STARTUP: latexpreview
+#+AUTHOR: Fredrik Meyer
+#+TITLE: Notater om funksjonell programmering
+
+* Lenker:
+  - [[https://en.wikipedia.org/wiki/Functional_programming][Wikipedia]].
+  - [[https://www.youtube.com/watch?v=E8I19uA-wGY&t=1965s][Design patterns]].
+* Objekter har *metoder*, ikke funksjoner
+  - Funksjoner returnerer alltid det samme.
+* Forklare state (tilstand)
+ - Relatert til pipelines / rette flow av data.
+* Vi vil ha *referential transparency*
+- De samme uttrykkene skal alltid returnere det samme svaret.
+- Samme som "substitusjonsmodellen" ??
+* Ting man forbinder med FP
+- Funksjoner som parametre (i.e. tilstedeværelsen til høyere-ordens funksjoner)
+- "Pure functions" / "rene funksjoner": uten sideeffekter
+- Rekursjon
+    - Som et alternativ til for-løkker, med muterende variabelen i.
+- Lazy evaluation (lat evaluering??) (hvorfor??)
+* HVORFOR
+     - Modularitet og abstraksjoner!
+       - Hele grunnen til at verden er der den er i dag!
+       - Må ha noen gode eksempler:
+         * Du skal ikke trenge å vite hvordan en bil fungerer for å kjøre den. Uavhengig om det er en elektrisk eller bensinbil.
+         * La oss si du skal bygge en datamaskin. Du kjøper et motherboard (hva er det på norsk??), noen prosessorer osv osv osv, og setter dem sammen på riktig måte. Og plutselig har du en datamaskin. Du trenger ikke vite noe om hvordan delene settes sammen!
+         * Evt. et dataprogram! (ta numeriske diff-ligninger som eksempel)
+           1. Du trenger ikke vite hvordan en datamaskin fungerer.
+           2. Du trenger ikke kunne C.
+           3. Det eneste du trenger er å vite om *API-et* til Numpy.
+            #+BEGIN_SRC python value
+            import numpy as np
+
+            x = np.array([[2,3,4], [4,5,6]])
+            return x
+             #+END_SRC
+           4. Store programmer er satt sammen av mange modulære deler.
+ - Vi har lyst å sette sammen (*compose*) deler av programmer.
+   - Objekter settes sammen ved hjelp av felter (private/public/osv). Funksjoner settes ved hjelp av *komposisjon*.
+   - Noen her prøvd å jobbe med lister i Python? Noen ganger endrer de seg!
+
+
+- HVORDAN ÅPNE KODER I ORG MODE I EGEN BUFFER?
+- Hvordan ha inline kode 
