@@ -28,17 +28,12 @@
            1. Du trenger ikke vite hvordan en datamaskin fungerer.
            2. Du trenger ikke kunne C.
            3. Det eneste du trenger er å vite om *API-et* til Numpy.
-            #+BEGIN_SRC python value
-            import numpy as np
-
-            x = np.array([[2,3,4], [4,5,6]])
-            return x
-             #+END_SRC
            4. Store programmer er satt sammen av mange modulære deler.
  - Vi har lyst å sette sammen (*compose*) deler av programmer.
    - Objekter settes sammen ved hjelp av felter (private/public/osv). Funksjoner settes ved hjelp av *komposisjon*.
    - Noen her prøvd å jobbe med lister i Python? Noen ganger endrer de seg!
 
 
-- HVORDAN ÅPNE KODER I ORG MODE I EGEN BUFFER?
+- HVORDAN ÅPNE KODER I ORG MODE I EGEN BUFFER? C-c '
 - Hvordan ha inline kode 
+- indentering multi line python

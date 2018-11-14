@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Funksjonell programmering</title>
+<meta name="author" content="(Fredrik Meyer)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
+
+<link rel="stylesheet" href="./reveal.js/css/theme/solarized.css" id="theme"/>
+
+<link rel="stylesheet" href="./extra.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Funksjonell programmering</h1><h2 class="author">Fredrik Meyer</h2><p class="date">Created: 2018-11-14 Wed 21:01</p>
+</section>
+
+<section>
+<section id="slide-orgbb88dbe">
+<h2 id="orgbb88dbe">Hva jeg skal snakke om</h2>
+<p>
+Om abstraksjoner og modularitet i programmering.
+</p>
+
+<p>
+Og hvordan funksjonell programmering kan hjelpe oss med det.
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orge8ea345">
+<h2 id="orge8ea345">Abstraksjoner</h2>
+<ul>
+<li>Det hele startet i steinalderen.</li>
+
+</ul>
+
+
+<div class="figure">
+<p><img src="./caveman.jpg" alt="caveman.jpg" />
+</p>
+</div>
+</section>
+<section id="slide-orgbd37935">
+<h3 id="orgbd37935">Verktøy som vi forstår</h3>
+<ul>
+<li class="fragment appear">Spader, steiner, sakser.</li>
+<li class="fragment appear">Delvis: blyant, penn&#x2026;</li>
+
+</ul>
+
+<div class="figure">
+<p><img src="./pencil.jpg" alt="pencil.jpg" class="fit" />
+</p>
+</div>
+</section>
+<section id="slide-org97a3f44">
+<h3 id="org97a3f44">Verktøy som vi ikke forstår</h3>
+<ul>
+<li>Biler, trykkpresse, &#x2026;</li>
+
+</ul>
+
+<div class="figure">
+<p><img src="./car.png" alt="car.png" class="fit" />
+</p>
+</div>
+</section>
+<section id="slide-org98fecfb">
+<h3 id="org98fecfb">Verktøy som vi virkelig ikke forstår</h3>
+<ul>
+<li class="fragment appear">Datamaskiner</li>
+<li class="fragment appear">Maskinkode</li>
+<li class="fragment appear">iPhone</li>
+
+</ul>
+</section>
+<section id="slide-orgc840f72">
+<h3 id="orgc840f72">Abstraksjon er kompresjon</h3>
+<blockquote nil>
+<p>
+An abstraction can be seen as a compression process, mapping multiple different pieces of constituent data to a single piece of abstract data&#x2026;
+</p>
+</blockquote>
+<p>
+(Wikipedia)
+</p>
+
+<p>
+Abstraksjon handler om å trekke ut det essensielle fra et objekt eller en prosess og <b>glemme</b> detaljer.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org6f93aeb">
+<h2 id="org6f93aeb">Modularitet</h2>
+<ul>
+<li><b>Modularitet</b> Å dele et system opp i gjenbrukbare og uavhengige komponenter.</li>
+
+</ul>
+</section>
+<section id="slide-org6668352">
+<h3 id="org6668352">Menneskekroppen</h3>
+
+<div class="figure">
+<p><img src="./organs.png" alt="organs.png" class="fit" />
+</p>
+</div>
+</section>
+<section id="slide-org3e6e338">
+<h3 id="org3e6e338">Samfunnet</h3>
+<ul>
+<li class="fragment appear">Ansvarsfordeling</li>
+<li class="fragment appear">Veg, rettsvesen, helsevesen, sosialstøtte, osv.</li>
+<li class="fragment appear">Uavhengige komponenter som fungerer autonomt.</li>
+<li class="fragment appear">Kan bytte ut det norske med det svenske forsvaret uten særlig konsekvens.</li>
+
+</ul>
+
+</section>
+<section id="slide-org89f1597">
+<h3 id="org89f1597">Også programmer</h3>
+<ul>
+<li class="fragment appear">Vi lager <i>metoder</i> og <i>funksjoner</i> og <i>pakker</i>. Alle med spesifikke API-er.</li>
+<li class="fragment appear">Database-tilkobling, domenelogikk, og webserving skjer i forskjellige deler av applikasjonen.</li>
+<li class="fragment appear">Riktig grad av modularitet gjør det lettere å sette seg inn i ny kode.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3e3a93e">
+<h2 id="org3e3a93e">Noen ord om tilstand</h2>
+<ul>
+<li class="fragment appear">Eksempel: nettside. Er boksen åpen eller lukket? Er det integralet allerede regnet ut? Hva er passordet til databasen?</li>
+<li class="fragment appear">Vanskelig å holde styr på. En utfordring man gjerne ikke tenker på under studiene (!!).</li>
+<li class="fragment appear">Metodikker og rammeverk for å holde orden på tilstand: React+Redux, strømmer, sentraliserte logger, osv&#x2026;</li>
+
+</ul>
+
+</section>
+<section id="slide-org6793dec">
+<h3 id="org6793dec">Eksempel</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #268bd2;">s</span> = 0
+<span style="color: #268bd2;">i</span> = 0
+<span style="color: #859900; font-weight: bold;">while</span> i &lt; 10:
+    <span style="color: #268bd2;">s</span> += i*i
+    <span style="color: #268bd2;">i</span> += 1
+<span style="color: #859900; font-weight: bold;">return</span> s
+</pre>
+</div>
+
+<ul>
+<li class="fragment appear">i varierer i verdi.</li>
+<li class="fragment appear">Hva om vi har to parallelle prosesser kjørende og den ene endrer på i?</li>
+<li class="fragment appear">Utvid med mange flere tilstandsvariabler og prøv og resonnér.</li>
+
+</ul>
+
+</section>
+<section id="slide-org6e757b8">
+<h3 id="org6e757b8">Enveis dataflyt</h3>
+
+<div class="figure">
+<p><img src="./elmflow.png" alt="elmflow.png" /> 
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org20b7363">
+<h2 id="org20b7363">Funksjonell programmering</h2>
+<ul>
+<li class="fragment appear">(Matematiske) funksjoner er den foretrukne abstrakjonsmekanismen.</li>
+<li class="fragment appear">Vi er veldig forsiktige med tilstand.</li>
+<li class="fragment appear">Funksjonelle språk: Haskell, Scheme, Clojure, Scala, Elm, Common Lisp, F#,&#x2026;</li>
+<li class="fragment appear">Språk med funksjonelle trekk: Javascript, Python, R, Rust, <b>Java 8</b></li>
+
+</ul>
+</section>
+<section id="slide-org0bab196">
+<h3 id="org0bab196">Typiske språktrekk for funksjonelle språk</h3>
+<ul>
+<li class="fragment appear">Funksjoner som parametre
+<ul>
+<li class="fragment appear"><code>map(length, "hei", "din", "***")</code></li>
+
+</ul></li>
+<li class="fragment appear">Ofte anonyme funksjoner (<i>lambda</i>-funksjoner)
+<ul>
+<li class="fragment appear"><code>wiggle = lambda x: x + random()</code></li>
+
+</ul></li>
+<li class="fragment appear">Sterk typet.
+<ul>
+<li class="fragment appear"><code>static Integer lengthOfString(String string)</code></li>
+
+</ul></li>
+<li class="fragment appear">Rene funksjoner / ingen sideeffekter</li>
+<li class="fragment appear">Rekursjon i stedet for <code>for</code>-løkker</li>
+
+</ul>
+</section>
+<section id="slide-org93794c0">
+<h3 id="org93794c0">Eksempel 1</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #268bd2;">names</span> = [<span style="color: #2aa198;">"Carl Friedrich"</span>, <span style="color: #2aa198;">"Emmy"</span>, <span style="color: #2aa198;">"Sofya"</span>, <span style="color: #2aa198;">"Leonhard"</span>]
+<span style="color: #268bd2;">lengths</span> = <span style="color: #657b83; font-weight: bold;">map</span>(<span style="color: #657b83; font-weight: bold;">len</span>, names)
+<span style="color: #859900; font-weight: bold;">return</span> lengths
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">=&gt; [14, 4, 5, 8]</span>
+</pre>
+</div>
+
+<ul>
+<li><code>len</code> (en funksjon \(\mathrm{List}(T) \xrightarrow{\mathrm{len}} \mathbb N_0\)) er en parameter til <code>map</code>.</li>
+
+</ul>
+</section>
+<section id="slide-orgf732c41">
+<h3 id="orgf732c41">Eksempel 2</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #859900; font-weight: bold;">return</span> <span style="color: #657b83; font-weight: bold;">reduce</span>(<span style="color: #859900; font-weight: bold;">lambda</span> x, y: x + y,
+              <span style="color: #657b83; font-weight: bold;">map</span>(<span style="color: #859900; font-weight: bold;">lambda</span> i: i**2, <span style="color: #657b83; font-weight: bold;">range</span>(10)),
+              0)
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">=&gt; 285</span>
+</pre>
+</div>
+
+<ul>
+<li>Vi kvadrerer alle tallene i <code>range(10)</code>, og så reduserer vi dem med <code>reduce</code>.</li>
+
+</ul>
+</section>
+<section id="slide-org5d56457">
+<h3 id="org5d56457">Eksempel 3</h3>
+<div class="org-src-container">
+
+<pre  class="src src-python"><span style="color: #268bd2;">p</span> = <span style="color: #859900; font-weight: bold;">lambda</span> x: x**2 - 2
+
+<span style="color: #859900; font-weight: bold;">def</span> <span style="color: #268bd2;">find_zero</span>(a, b, f):
+    <span style="color: #859900; font-weight: bold;">if</span> <span style="color: #657b83; font-weight: bold;">abs</span>(f(a)) &lt; 0.0001:
+        <span style="color: #859900; font-weight: bold;">return</span> a
+
+    <span style="color: #268bd2;">avg</span> = 0.5*(a+b)
+
+    <span style="color: #859900; font-weight: bold;">if</span> f(a)*f(avg) &lt; 0:
+        <span style="color: #859900; font-weight: bold;">return</span> find_zero(a, avg, f)
+    <span style="color: #859900; font-weight: bold;">else</span>:
+        <span style="color: #859900; font-weight: bold;">return</span> find_zero(avg, b, f)
+
+<span style="color: #859900; font-weight: bold;">return</span> find_zero(0, 5, p)
+<span style="color: #93a1a1;"># </span><span style="color: #93a1a1;">=&gt; 1.41418457031</span>
+</pre>
+</div>
+
+<ul>
+<li>Finne nullpunkter ved todeling.</li>
+
+</ul>
+</section>
+<section id="slide-orgf3dd6ab">
+<h3 id="orgf3dd6ab">Eksempel 4</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java">listOfNumbers.stream()
+    .map(n -&gt; n*n)
+    .reduce((a,b) -&gt; a + b, 0);
+</pre>
+</div>
+
+<p>
+Java 8 innførte mange funksjonelle operasjoner.
+</p>
+
+<div class="org-src-container">
+
+<pre  class="src src-java">listOfNames.stream()
+    .map(String::length)
+    .collect(Collectors.toList());
+</pre>
+</div>
+
+<p>
+(legg merke til hvor mer deklarativt det er!)
+</p>
+
+</section>
+<section id="slide-org00cba16">
+<h3 id="org00cba16">Fordeler med funksjonell tankegang</h3>
+<ul>
+<li class="fragment appear">Funksjoner returnerer alltid det samme.</li>
+<li class="fragment appear">Tilstand er lettere å resonnere om.</li>
+<li class="fragment appear">Deklarativt (i stedet for imperativt).</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb84e94f">
+<h2 id="orgb84e94f">Lærepenge</h2>
+<ul>
+<li class="fragment appear">Jeg trodde programmering handlet om algoritmer og smart kode.</li>
+<li class="fragment appear">&#x2026; men vel så mye om <b>struktur</b> (og argumenter).</li>
+<li class="fragment appear">Og modularitet og riktige abstraksjoner.</li>
+<li class="fragment appear">(litt som at matematikk ikke er kalkulus - det er også bevis, og grupper, og ringer, og kategorier!)</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org54eaea9">
+<h2 id="org54eaea9">Funfact</h2>
+<div class="outline-text-2" id="text-org54eaea9">
+</div>
+</section>
+<section id="slide-org24791f1">
+<h3 id="org24791f1">"Alt" kan gjøres med kun lambda-funksjoner.</h3>
+<ul>
+<li>Lynkurs i Scheme:
+<ul>
+<li class="fragment appear">Alt er en verdi eller en funksjon.</li>
+<li class="fragment appear"><code>(lambda (x) (+ 1 x))</code> plusser én på <code>x</code>.</li>
+<li class="fragment appear"><code>((lambda (x) (+ 1 x)) 1)</code> vil returnere <code>2</code>.</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org6d745f9">
+<h3 id="org6d745f9">Fakultet</h3>
+<div class="org-src-container">
+
+<pre  class="src src-elisp">((<span style="color: #859900; font-weight: bold;">lambda</span> (x) (x x))
+ (<span style="color: #859900; font-weight: bold;">lambda</span> (fact-gen)
+   (<span style="color: #859900; font-weight: bold;">lambda</span> (n)
+     (<span style="color: #859900; font-weight: bold;">if</span> (zero? n)
+         1
+         (* n ((fact-gen fact-gen) (sub1 n)))))))
+</pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org718466d">
+<h2 id="org718466d">Anbefalinger</h2>
+<ul>
+<li class="fragment appear">Kurset INF2410: funksjonell programmering i Scheme. Veldig morsomt.</li>
+<li class="fragment appear">Seven Languages in Seven Weeks (bok)</li>
+<li class="fragment appear">Hvis du skal lage nettside: Elm ;-). <a href="http://www.elm-lang.org">http://www.elm-lang.org</a></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgefcd7f1">
+<h2 id="orgefcd7f1">Objektorientert programmering</h2>
+<ul>
+<li class="fragment appear"><b>Objekter</b> er den foretrukne abstrakjonsmekanismen.</li>
+<li class="fragment appear">Objekter har ansvaret for egne oppgaver - implementasjonen er uinteressant.</li>
+
+</ul>
+</section>
+<section id="slide-orgb7f9e38">
+<h3 id="orgb7f9e38">Eksempel</h3>
+<div class="org-src-container">
+
+<pre  class="src src-java"><span style="color: #b58900;">Car</span> <span style="color: #268bd2;">car</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">Car</span>();
+<span style="color: #b58900;">Car</span> <span style="color: #268bd2;">secondCar</span> = <span style="color: #859900; font-weight: bold;">new</span> <span style="color: #b58900;">Car</span>();
+car.setColor(RED);
+</pre>
+</div>
+
+<p>
+Hva skjer med <code>car == secondCar</code>? Eller <code>car.equals(secondCar)</code>?
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,206 @@
+#+OPTIONS: toc:nil num:nil date:nil
+#+STARTUP: latexpreview
+#+REVEAL_THEME: solarized
+#+Title: Funksjonell programmering
+#+Author: Fredrik Meyer
+#+Email: @FredrikMeyer
+#+REVEAL_EXTRA_CSS: ./extra.css
+#+DATE:nil
+
+* Hva jeg skal snakke om
+  Om abstraksjoner og modularitet i programmering.
+
+  Og hvordan funksjonell programmering kan hjelpe oss med det.
+
+
+* Abstraksjoner
+ - Det hele startet i steinalderen.
+
+[[./caveman.jpg]]
+** Verktøy som vi forstår
+   #+ATTR_reveal: :frag (appear)
+   - Spader, steiner, sakser.
+   - Delvis: blyant, penn...
+   #+ATTR_HTML: :class fit
+     [[./pencil.jpg]]
+** Verktøy som vi ikke forstår
+   - Biler, trykkpresse, ...
+   #+ATTR_HTML: :class fit
+     [[./car.png]]
+** Verktøy som vi virkelig ikke forstår
+   #+ATTR_reveal: :frag (appear)
+   - Datamaskiner
+   - Maskinkode
+   - iPhone
+** Abstraksjon er kompresjon
+   #+BEGIN_QUOTE
+An abstraction can be seen as a compression process, mapping multiple different pieces of constituent data to a single piece of abstract data...
+   #+END_QUOTE
+   (Wikipedia)
+
+   Abstraksjon handler om å trekke ut det essensielle fra et objekt eller en prosess og *glemme* detaljer.
+
+* Modularitet
+  - *Modularitet* Å dele et system opp i gjenbrukbare og uavhengige komponenter.
+** Menneskekroppen
+   #+ATTR_HTML: :class fit
+   [[./organs.png]]
+** Samfunnet
+   #+ATTR_reveal: :frag (appear)
+   - Ansvarsfordeling
+   - Veg, rettsvesen, helsevesen, sosialstøtte, osv.
+   - Uavhengige komponenter som fungerer autonomt.
+   - Kan bytte ut det norske med det svenske forsvaret uten særlig konsekvens.
+
+** Også programmer
+   #+ATTR_reveal: :frag (appear)
+   - Vi lager /metoder/ og /funksjoner/ og /pakker/. Alle med spesifikke API-er.
+   - Database-tilkobling, domenelogikk, og webserving skjer i forskjellige deler av applikasjonen.
+   - Riktig grad av modularitet gjør det lettere å sette seg inn i ny kode.
+
+* Noen ord om tilstand
+  #+ATTR_REVEAL: :frag (appear)
+  - Eksempel: nettside. Er boksen åpen eller lukket? Er det integralet allerede regnet ut? Hva er passordet til databasen?
+  - Vanskelig å holde styr på. En utfordring man gjerne ikke tenker på under studiene (!!).
+  - Metodikker og rammeverk for å holde orden på tilstand: React+Redux, strømmer, sentraliserte logger, osv...
+
+** Eksempel
+   #+BEGIN_SRC python
+s = 0
+i = 0
+while i < 10:
+    s += i*i
+    i += 1
+return s
+   #+END_src
+
+   #+ATTR_REVEAL: :frag (appear)
+   - i varierer i verdi.
+   - Hva om vi har to parallelle prosesser kjørende og den ene endrer på i?
+   - Utvid med mange flere tilstandsvariabler og prøv og resonnér.
+
+** Enveis dataflyt
+   [[./elmflow.png]] 
+
+* Funksjonell programmering
+   #+ATTR_REVEAL: :frag (appear)
+  - (Matematiske) funksjoner er den foretrukne abstrakjonsmekanismen.
+  - Vi er veldig forsiktige med tilstand.
+  - Funksjonelle språk: Haskell, Scheme, Clojure, Scala, Elm, Common Lisp, F#,...
+  - Språk med funksjonelle trekk: Javascript, Python, R, Rust, *Java 8*
+** Typiske språktrekk for funksjonelle språk
+   #+ATTR_REVEAL: :frag (appear)
+   - Funksjoner som parametre
+     #+ATTR_REVEAL: :frag (appear)
+     + ~map(length, "hei", "din", "***")~
+   - Ofte anonyme funksjoner (/lambda/-funksjoner)
+     #+ATTR_REVEAL: :frag (appear)
+     + ~wiggle = lambda x: x + random()~
+   - Sterk typet.
+     #+ATTR_REVEAL: :frag (appear)
+     + ~static Integer lengthOfString(String string)~
+   - Rene funksjoner / ingen sideeffekter
+   - Rekursjon i stedet for ~for~-løkker
+** Eksempel 1
+   #+BEGIn_src python
+   names = ["Carl Friedrich", "Emmy", "Sofya", "Leonhard"]
+   lengths = map(len, names)
+   return lengths
+   # => [14, 4, 5, 8]
+   #+END_src
+
+   - ~len~ (en funksjon $\mathrm{List}(T) \xrightarrow{\mathrm{len}} \mathbb N_0$) er en parameter til ~map~.
+** Eksempel 2
+   #+BEGIn_src python
+   return reduce(lambda x, y: x + y,
+                 map(lambda i: i**2, range(10)),
+                 0)
+   # => 285
+   #+END_SRC
+
+   - Vi kvadrerer alle tallene i ~range(10)~, og så reduserer vi dem med ~reduce~.
+** Eksempel 3
+
+#+BEGIN_SRC python
+p = lambda x: x**2 - 2
+
+def find_zero(a, b, f):
+    if abs(f(a)) < 0.0001:
+        return a
+
+    avg = 0.5*(a+b)
+
+    if f(a)*f(avg) < 0:
+        return find_zero(a, avg, f)
+    else:
+        return find_zero(avg, b, f)
+
+return find_zero(0, 5, p)
+# => 1.41418457031
+#+END_SRC
+
+ - Finne nullpunkter ved todeling.
+** Eksempel 4
+   #+BEGIN_SRC java
+   listOfNumbers.stream()
+       .map(n -> n*n)
+       .reduce((a,b) -> a + b, 0);
+   #+END_SRC
+
+   Java 8 innførte mange funksjonelle operasjoner.
+
+   #+BEGIN_SRC java
+   listOfNames.stream()
+       .map(String::length)
+       .collect(Collectors.toList());
+   #+END_SRC
+
+   (legg merke til hvor mer deklarativt det er!)
+
+** Fordeler med funksjonell tankegang
+   #+ATTR_REVEAL: :frag (appear)
+   - Funksjoner returnerer alltid det samme.
+   - Tilstand er lettere å resonnere om.
+   - Deklarativt (i stedet for imperativt).
+
+* Lærepenge
+  #+ATTR_REVEAL: :frag (appear)
+  - Jeg trodde programmering handlet om algoritmer og smart kode.
+  - ... men vel så mye om *struktur* (og argumenter).
+  - Og modularitet og riktige abstraksjoner.
+  - (litt som at matematikk ikke er kalkulus - det er også bevis, og grupper, og ringer, og kategorier!)
+* Funfact
+** "Alt" kan gjøres med kun lambda-funksjoner.
+   - Lynkurs i Scheme:
+     #+ATTR_REVEAL: :frag (appear)
+     - Alt er en verdi eller en funksjon.
+     - ~(lambda (x) (+ 1 x))~ plusser én på ~x~.
+     - ~((lambda (x) (+ 1 x)) 1)~ vil returnere ~2~.
+
+** Fakultet
+#+BEGIN_SRC elisp
+((lambda (x) (x x))
+ (lambda (fact-gen)
+   (lambda (n)
+     (if (zero? n)
+         1
+         (* n ((fact-gen fact-gen) (sub1 n)))))))
+#+END_SRC
+* Anbefalinger
+   #+ATTR_REVEAL: :frag (appear)
+  - Kurset INF2410: funksjonell programmering i Scheme. Veldig morsomt.
+  - Seven Languages in Seven Weeks (bok)
+  - Hvis du skal lage nettside: Elm ;-). [[http://www.elm-lang.org]]
+
+* Objektorientert programmering
+   #+ATTR_REVEAL: :frag (appear)
+  - *Objekter* er den foretrukne abstrakjonsmekanismen.
+  - Objekter har ansvaret for egne oppgaver - implementasjonen er uinteressant.
+** Eksempel
+   #+BEGIN_SRC java
+   Car car = new Car();
+   Car secondCar = new Car();
+   car.setColor(RED);
+   #+END_SRC
+
+   Hva skjer med ~car == secondCar~? Eller ~car.equals(secondCar)~?
